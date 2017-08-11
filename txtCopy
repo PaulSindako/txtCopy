@@ -1,0 +1,41 @@
+#include<iostream>
+#include<fstream>
+#include<string>
+
+using namespace std;
+
+int main()
+{
+	setlocale(0,"RUSSIAN"); // ïîäêëþ÷àåì êèðèëëèöó
+	
+	string buff;            // ñîçäàåì áóôåð äëÿ âðåìåííîãî õðàíåíèÿ äàííûõ
+	string infilepath;     // èñõîäíûé ïóòü ôàéëà
+	string outfilepath;    // ïóòü äëÿ ïîìåùåíèÿ êîïèè
+	string name;           // èìÿ ôàéëà
+	
+	cout<<" Óêàæèòå ïîëíûé ïóòü ê ôàéëó: ";
+	getline(cin, infilepath);               // ââîäèì èñõîäíûé ïóòü ñ êîíñîëè
+	cout<<"\n À òàêæå èìÿ è ôîðìàò ôàéëà: ";
+	getline(cin, name);                       // ïèøåì èìÿ
+	ifstream fin(infilepath.c_str());          // îòêðûâàåì âûáðàííûé ôàéë
+	if(!fin.is_open())                        // ïðîâåðêà íà îòêðûòèå ôàéëà
+	{
+		cout<<" Îøèáêà, ôàéë íå ñóùåñòâóåò.";
+		return -1;
+	} else
+	getline(fin, buff);                      // ïîìåùàåì ñîäåðæèìîå ôàéëà â áóôåð
+	fin.close();                            // çàêðûâàåì èñõîäíûé ôàéë
+	system("cls");                         // ÷èñòèì êîíñîëü
+	
+	cout<<" Óêàæèòå, êóäà ïîìåñòèòü êîïèþ ôàéëà, à òàêæå åãî íàçâàíèå è ôîðìàò: ";
+	getline(cin, outfilepath);                      // ââîäèì ïóòü äëÿ ïîìåùåíèÿ êîïèè ôàéëà
+	ofstream fout(outfilepath.c_str());            // ñîçäàåì ôàéë-êîïèþ                        
+	fout<<buff;                                    // ïîìåùàåì â íåãî ñîäåðæèìîå áóôåðà
+	fout.close();                                 // çàêðûâàåì
+	system("cls");                                // ÷èñòèì êîíñîëü
+	
+	ofstream xml("Text.xml");                // îòêðûâàåì ôàéë ñ xml, ïî óìîë÷àíèþ ñ÷èòàåì, ÷òî îí óæå ñîçäàí.
+	xml<<"Èìÿ ôàéëà: " + name + "\nÈñõîäíûé ïóòü ôàéëà: " + infilepath + "\nÏóòü ïîìåùåíèÿ êîïèè: " + outfilepath;  // Ïîìåùàåì íåîáõîäèìûå íàì äàííûå â ôàéë xml
+		
+	return 0;
+}
